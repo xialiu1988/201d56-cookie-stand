@@ -61,6 +61,8 @@ Store.prototype.render=function(){
   trEl.appendChild(dayTotal);
   tbodyEl.appendChild(trEl);
 
+
+  createTableFooter(this);
 };
 
 
@@ -71,13 +73,16 @@ function createTable(){
   var tblEl=document.getElementById('main-content');
   var theaderEl=document.createElement('thead');
   var tbodyEl=document.createElement('tbody');
+  var tfootEl=document.createElement('tfoot');
 
 
   tblEl.appendChild(theaderEl);
+  tblEl.appendChild(tfootEl);
   tblEl.appendChild(tbodyEl);
 
   //create id for some elements here
   tbodyEl.id='t-body';
+  tfootEl.id='t-foot';
 
   var corner1=document.createElement('th');
   corner1.textContent='';
@@ -92,7 +97,43 @@ function createTable(){
   var totalTitle=document.createElement('th');
   totalTitle.textContent='Total';
   theaderEl.appendChild(totalTitle);
+
+  totalTitle=document.createElement('th');
+  totalTitle.textContent='Totals';
+  tfootEl.appendChild(totalTitle);
 }
+
+
+function createTableFooter(store){
+
+  var removeTd = document.querySelectorAll('#t-foot td');
+
+  for(var x = 0; x < removeTd.length; x++){
+    removeTd[x].parentNode.removeChild(removeTd[x]);
+  }
+
+  var tfooterData=document.getElementById('t-foot');
+
+  var allStoresTotalPerDay=0;
+
+  for(var j=0;j<store.cookiesPerHour.length;j++){
+
+    var storesTotalPerHour=0;
+    for(var k=0;k<stores.length;k++){
+      storesTotalPerHour+=stores[k].cookiesPerHour[j];
+    }
+    allStoresTotalPerDay+=storesTotalPerHour;
+    var hourlyStoresTotalEl=document.createElement('td');
+    hourlyStoresTotalEl.innerHTML=storesTotalPerHour;
+    tfooterData.appendChild(hourlyStoresTotalEl);
+
+  }
+  var dailyStoresTotal=document.createElement('td');
+  dailyStoresTotal.innerHTML=allStoresTotalPerDay;
+  tfooterData.appendChild(dailyStoresTotal);
+
+}
+
 createTable();
 
 new Store('1st and Pike',23,65,6.3);
@@ -100,4 +141,3 @@ new Store('Seatac and Airport',3,24,1.2);
 new Store('Seattle Center',11,38,3.7);
 new Store('Capitol Hill',20,38,2.3);
 new Store('Alki',2,16,4.6);
-
