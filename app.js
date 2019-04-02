@@ -7,7 +7,7 @@ var store1={
   maxcust:65,
   avgCookiesSale: 6.3,
   calculate: function(){
-    var ranNum=Math.floor(Math.random()*(this.maxcust-this.mincust)+this.mincust);
+    var ranNum=Math.floor(Math.random()*(this.maxcust-this.mincust+1)+this.mincust);
     return Math.floor(ranNum*6.3);
   },
   render(){
