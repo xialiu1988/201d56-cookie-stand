@@ -11,7 +11,7 @@ function Store(name,mincust,maxcust,avgCookiesSale){
   this.cusPerHour=[];
   this.cookiesPerHour=[];
   this.dailyTotal=0;
-  this.sum;
+  //this.sum;
 
   stores.push(this);
   this.render();
@@ -41,6 +41,7 @@ Store.prototype.getHourlySales=function(){
 Store.prototype.render=function(){
 
   this.getHourlySales();
+  //get the id of the table and append the content to that table
   var tbodyEl=document.getElementById('t-body');
   var trEl=document.createElement('tr');
   var tthEl=document.createElement('th');
@@ -55,14 +56,11 @@ Store.prototype.render=function(){
 
   }
 
-
   var dayTotal=document.createElement('td');
   dayTotal.textContent=this.dailyTotal;
   trEl.appendChild(dayTotal);
-
   tbodyEl.appendChild(trEl);
 
-  this.tablefootCreate();
 };
 
 
@@ -73,16 +71,13 @@ function createTable(){
   var tblEl=document.getElementById('main-content');
   var theaderEl=document.createElement('thead');
   var tbodyEl=document.createElement('tbody');
-  var tfootEl=document.createElement('tfoot');
 
 
   tblEl.appendChild(theaderEl);
   tblEl.appendChild(tbodyEl);
-  tblEl.appendChild(tfootEl);
 
   //create id for some elements here
   tbodyEl.id='t-body';
-
 
   var corner1=document.createElement('th');
   corner1.textContent='';
@@ -97,10 +92,6 @@ function createTable(){
   var totalTitle=document.createElement('th');
   totalTitle.textContent='Total';
   theaderEl.appendChild(totalTitle);
-
-  var footTotal=document.createElement('th');
-  footTotal.textContent='Total';
-  tfootEl.appendChild(footTotal);
 }
 createTable();
 
@@ -110,9 +101,3 @@ new Store('Seattle Center',11,38,3.7);
 new Store('Capitol Hill',20,38,2.3);
 new Store('Alki',2,16,4.6);
 
-Store.prototype.tablefootCreate=function(){
-
-
-
-
-};
