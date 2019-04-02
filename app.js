@@ -11,24 +11,19 @@ function Store(name,mincust,maxcust,avgCookiesSale){
   this.cusPerHour=[];
   this.cookiesPerHour=[];
   this.dailyTotal=0;
-  //this.sum;
-
   stores.push(this);
   this.render();
 }
 
 //get random number
 Store.prototype.getRandomCusPerHour=function(min,max){
-
   for(var i=0;i<openhours.length;i++){
     var ranNum=Math.floor(Math.random()*(max-min+1)+min);
     this.cusPerHour.push(ranNum);
   }
-
 };
 
 Store.prototype.getHourlySales=function(){
-
   this.getRandomCusPerHour(this.mincust,this.maxcust);
   for(var i=0;i<openhours.length;i++){
     var perHour=Math.round(this.cusPerHour[i]*this.avgCookiesSale);
@@ -39,13 +34,11 @@ Store.prototype.getHourlySales=function(){
 
 
 Store.prototype.render=function(){
-
   this.getHourlySales();
   //get the id of the table and append the content to that table
   var tbodyEl=document.getElementById('t-body');
   var trEl=document.createElement('tr');
   var tthEl=document.createElement('th');
-
   tthEl.textContent=this.name;
   trEl.appendChild(tthEl);
 
@@ -53,28 +46,20 @@ Store.prototype.render=function(){
     var tdEl=document.createElement('td');
     tdEl.textContent=this.cookiesPerHour[i];
     trEl.appendChild(tdEl);
-
   }
-
   var dayTotal=document.createElement('td');
   dayTotal.textContent=this.dailyTotal;
   trEl.appendChild(dayTotal);
   tbodyEl.appendChild(trEl);
-
-
   createTableFooter(this);
 };
 
-
 //create a table for all the stores
-
 function createTable(){
-
   var tblEl=document.getElementById('main-content');
   var theaderEl=document.createElement('thead');
   var tbodyEl=document.createElement('tbody');
   var tfootEl=document.createElement('tfoot');
-
 
   tblEl.appendChild(theaderEl);
   tblEl.appendChild(tfootEl);
@@ -97,7 +82,6 @@ function createTable(){
   var totalTitle=document.createElement('th');
   totalTitle.textContent='Total';
   theaderEl.appendChild(totalTitle);
-
   totalTitle=document.createElement('th');
   totalTitle.textContent='Totals';
   tfootEl.appendChild(totalTitle);
@@ -105,19 +89,15 @@ function createTable(){
 
 
 function createTableFooter(store){
-
   var removeTd = document.querySelectorAll('#t-foot td');
 
   for(var x = 0; x < removeTd.length; x++){
     removeTd[x].parentNode.removeChild(removeTd[x]);
   }
-
   var tfooterData=document.getElementById('t-foot');
-
   var allStoresTotalPerDay=0;
 
   for(var j=0;j<store.cookiesPerHour.length;j++){
-
     var storesTotalPerHour=0;
     for(var k=0;k<stores.length;k++){
       storesTotalPerHour+=stores[k].cookiesPerHour[j];
@@ -135,7 +115,6 @@ function createTableFooter(store){
 }
 
 createTable();
-
 new Store('1st and Pike',23,65,6.3);
 new Store('Seatac and Airport',3,24,1.2);
 new Store('Seattle Center',11,38,3.7);
