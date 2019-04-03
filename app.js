@@ -51,7 +51,7 @@ Store.prototype.render=function(){
   dayTotal.textContent=this.dailyTotal;
   trEl.appendChild(dayTotal);
   tbodyEl.appendChild(trEl);
-  createTableFooter(this);
+ // createTableFooter(this);
 };
 
 //create a table for all the stores
@@ -88,16 +88,11 @@ function createTable(){
 }
 
 
-function createTableFooter(store){
-  var removeTd = document.querySelectorAll('#t-foot td');
-
-  for(var x = 0; x < removeTd.length; x++){
-    removeTd[x].parentNode.removeChild(removeTd[x]);
-  }
+function createTableFooter(){
   var tfooterData=document.getElementById('t-foot');
   var allStoresTotalPerDay=0;
 
-  for(var j=0;j<store.cookiesPerHour.length;j++){
+  for(var j=0;j<openhours.length;j++){
     var storesTotalPerHour=0;
     for(var k=0;k<stores.length;k++){
       storesTotalPerHour+=stores[k].cookiesPerHour[j];
@@ -120,3 +115,4 @@ new Store('Seatac and Airport',3,24,1.2);
 new Store('Seattle Center',11,38,3.7);
 new Store('Capitol Hill',20,38,2.3);
 new Store('Alki',2,16,4.6);
+createTableFooter();
