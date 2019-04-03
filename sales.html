@@ -16,6 +16,21 @@
                </div>
         </header>
     <main>
+       <form id="addNewStore">
+           <label for="name">Store Name :</label>
+           <input type="text" name="name">
+
+           <label for="mincust">MinCust :</label>
+           <input type="number" name="mincust">
+
+           <label for="maxcust">MaxCust :</label>
+           <input type="number" name="maxcust">
+
+           <label for="avgcookie">Average Cookies sale :</label>
+           <input type="number" name="avgcookie" step="0.01">
+           <button type="submit">Add</button>
+       </form>
+
         <table id='main-content'></table>
     </main>
     <script src="app.js"></script>

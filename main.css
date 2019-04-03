@@ -21,6 +21,12 @@ h1{
 a{
     font-family: 'Indie Flower', cursive;
 }
+form{
+    display: block;
+    margin-left: 11em;
+    padding: 1em 1em 1em 1em;
+    
+}
 #main-content{
     font-family: 'Work Sans', sans-serif;
     border:5px solid gray;
@@ -40,7 +46,9 @@ th{
     background-color:rgb(247, 238, 120);
     border:2px solid #808080;
 }
-
+#t-foot{
+    background-color:lightslategray;
+}
 .navbar {
     display: inline-block;
     width: 150px;
