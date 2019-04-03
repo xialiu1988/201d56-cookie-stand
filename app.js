@@ -51,7 +51,6 @@ Store.prototype.render=function(){
   dayTotal.textContent=this.dailyTotal;
   trEl.appendChild(dayTotal);
   tbodyEl.appendChild(trEl);
-// createTableFooter(this);
 };
 
 //create a table for all the stores
