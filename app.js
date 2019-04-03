@@ -66,6 +66,7 @@ function createTable(){
   tblEl.appendChild(tbodyEl);
 
   //create id for some elements here
+  theaderEl.id='t-header';
   tbodyEl.id='t-body';
   tfootEl.id='t-foot';
 
