@@ -18,7 +18,7 @@ function Store(name,mincust,maxcust,avgCookiesSale){
 //get random number
 Store.prototype.getRandomCusPerHour=function(min,max){
   for(var i=0;i<openhours.length;i++){
-    var ranNum=Math.floor(Math.random()*(max-min+1)+min);
+    var ranNum=Math.ceil(Math.random()*(max-min+1)+min);
     this.cusPerHour.push(ranNum);
   }
 };
@@ -38,6 +38,7 @@ Store.prototype.render=function(){
   //get the id of the table and append the content to that table
   var tbodyEl=document.getElementById('t-body');
   var trEl=document.createElement('tr');
+  trEl.id=this.name;
   var tthEl=document.createElement('th');
   tthEl.textContent=this.name;
   trEl.appendChild(tthEl);
@@ -108,7 +109,6 @@ function createTableFooter(){
   tfooterData.appendChild(dailyStoresTotal);
 
 }
-
 createTable();
 new Store('1st and Pike',23,65,6.3);
 new Store('Seatac and Airport',3,24,1.2);
@@ -116,3 +116,53 @@ new Store('Seattle Center',11,38,3.7);
 new Store('Capitol Hill',20,38,2.3);
 new Store('Alki',2,16,4.6);
 createTableFooter();
+
+//event listener for adding new store to the table
+var newData=document.getElementById('addNewStore');
+newData.addEventListener('submit',addNewStore);
+function addNewStore(e){
+  e.preventDefault();
+  var storeName=e.target.name.value;
+  var min=e.target.mincust.value;
+  var max=e.target.maxcust.value;
+  var avg=e.target.avgcookie.value;
+  //put all the existed store names in an array
+  var existedName=[];
+  for(var ii=0;ii<stores.length;ii++){
+    existedName.push(stores[ii].name);
+  }
+  //if the name is not existed in the array , create a new instance of store,and calculate the totals again
+  if(!existedName.includes(storeName)){
+    new Store(storeName,min,max,avg);
+    var tfooterData=document.getElementById('t-foot');
+    tfooterData.parentNode.removeChild(tfooterData);
+    var tblEl=document.getElementById('main-content');
+    var tfootEl=document.createElement('tfoot');
+    tblEl.appendChild(tfootEl);
+    tfootEl.id='t-foot';
+    var totalTitle=document.createElement('th');
+    totalTitle.textContent='Totals';
+    tfootEl.appendChild(totalTitle);
+    createTableFooter();
+  }
+  else{
+    var pos = stores.map(function(e) { return e.name; }).indexOf(storeName);
+    stores.splice(pos,1);
+    var rowEl=document.getElementById(storeName);
+    rowEl.parentNode.removeChild(rowEl);
+    new Store(storeName,min,max,avg);
+    //remove the former totals row
+    var tData=document.getElementById('t-foot');
+    tData.parentNode.removeChild(tData);
+    //create a new row with updated totals amount of sales
+    var tbEl=document.getElementById('main-content');
+    var footEl=document.createElement('tfoot');
+    tbEl.appendChild(footEl);
+    footEl.id='t-foot';
+    var tTitle=document.createElement('th');
+    tTitle.textContent='Totals';
+    footEl.appendChild(tTitle);
+    createTableFooter();
+  }
+}
+
