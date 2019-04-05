@@ -1,4 +1,18 @@
 'use strict';
+//loading all the images when open the browser
+window.onload=function(){
+  var imgs =['./Assets/chinook.jpg','Assets/cutter.jpeg','Assets/fish.jpg','Assets/frosted-cookie.jpg','Assets/shirt.jpg','Assets/family.jpg'];
+  var i = 0;
+  var idx=document.getElementById('add');
+  idx.src='Assets/family.jpg';
+  function time(){
+    i++;
+    i=i%6;
+    idx.src=imgs[i];
+  }
+  setInterval(time,2000);
+};
+
 var stores=[];
 var openhours=['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
 function Store(name,mincust,maxcust,avgCookiesSale){
@@ -165,4 +179,6 @@ function addNewStore(e){
     createTableFooter();
   }
 }
+
+
 
